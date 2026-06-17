@@ -15,7 +15,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 <style>
   :root{
-    --bg:#EEF0F3;
+    --bg:#EBECF2;
     --paper:#F7F8FA;
     --surface:#FFFFFF;
     --ink:#15171C;
@@ -34,6 +34,11 @@
   html{scroll-behavior:smooth;}
   @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
   body{margin:0;background:var(--bg);color:var(--ink);font-family:"Inter",system-ui,sans-serif;font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:hidden;}
+  body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+    background:
+      radial-gradient(70% 55% at 6% -8%, rgba(22,43,216,.13), transparent 56%),
+      radial-gradient(56% 52% at 106% 10%, rgba(102,74,255,.13), transparent 56%),
+      radial-gradient(60% 58% at 96% 108%, rgba(232,89,12,.06), transparent 55%);}
   a{color:inherit;text-decoration:none;}
   ::selection{background:var(--accent);color:#fff;}
   .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px;}
@@ -169,7 +174,7 @@
   .card-link{font-family:"JetBrains Mono",monospace;font-size:13.5px;font-weight:500;color:var(--accent);display:inline-flex;align-items:center;gap:7px;align-self:flex-start;}
   .card-link .arr{transition:transform .2s;}
   .card:hover .card-link .arr{transform:translate(3px,-3px);}
-  .card.more{align-items:center;justify-content:center;text-align:center;border-style:dashed;background:transparent;}
+  .card.more{grid-column:1 / -1;align-items:center;justify-content:center;text-align:center;border-style:dashed;background:transparent;}
   .card.more h3{font-size:20px;margin-bottom:6px;}
   .card.more p{flex:none;margin-bottom:16px;}
 
@@ -350,8 +355,16 @@
   <!-- PROJECTS -->
   <section id="projects">
     <div class="wrap">
-      <div class="sec-head reveal"><span class="sec-idx">03 —</span><h2 class="sec-title">Selected projects</h2><span class="sec-line"></span></div>
+      <div class="sec-head reveal"><span class="sec-idx">03 —</span><h2 class="sec-title">Projects</h2><span class="sec-line"></span></div>
       <div class="proj-grid">
+
+        <a class="card tilt reveal" href="https://github.com/Aaradhya1807/Parabank_Capstone_project" target="_blank" rel="noopener noreferrer">
+          <div class="card-eyebrow">qa automation · capgemini</div>
+          <h3>ParaBank Test Framework</h3>
+          <p>End-to-end test automation for the ParaBank banking app — UI, API, and hybrid (UI→API) flows on the Page Object Model. Provisions unique users for safe parallel runs, cross-validates UI actions against live API balances, and ships Allure + HTML reports with RTM traceability, run through GitHub Actions and Jenkins.</p>
+          <div class="tech"><span>Playwright</span><span>TypeScript</span><span>API Testing</span><span>POM</span><span>Allure</span><span>Jenkins</span></div>
+          <span class="card-link">view on github <span class="arr">↗</span></span>
+        </a>
 
         <a class="card tilt reveal" href="https://github.com/Aaradhya1807/test-review-bot" target="_blank" rel="noopener noreferrer">
           <div class="card-eyebrow">automation + ai</div>
@@ -417,6 +430,10 @@
           <div class="pills"><span>LLM Integration</span><span>Prompt Engineering</span><span>Explainable AI</span><span>GitHub Actions</span><span>REST APIs</span><span>CI/CD Automation</span></div>
         </div>
         <div class="skill-cluster reveal">
+          <h4>qa &amp; testing</h4>
+          <div class="pills"><span>Playwright</span><span>Test Automation</span><span>UI / E2E Testing</span><span>API Testing</span><span>Page Object Model</span><span>Allure Reports</span></div>
+        </div>
+        <div class="skill-cluster reveal">
           <h4>data &amp; analytics</h4>
           <div class="pills"><span>EDA</span><span>Data Modeling</span><span>ETL</span><span>KPI Tracking</span><span>Pandas</span><span>NumPy</span><span>PySpark</span></div>
         </div>
@@ -426,7 +443,7 @@
         </div>
         <div class="skill-cluster reveal">
           <h4>databases &amp; tools</h4>
-          <div class="pills"><span>PostgreSQL</span><span>MySQL</span><span>MongoDB</span><span>Prisma ORM</span><span>Git &amp; GitHub</span><span>Jupyter</span><span>Playwright</span><span>Next.js</span><span>Streamlit</span><span>GCP</span><span>Linux</span><span>Postman</span></div>
+          <div class="pills"><span>PostgreSQL</span><span>MySQL</span><span>MongoDB</span><span>Prisma ORM</span><span>Git &amp; GitHub</span><span>Jupyter</span><span>Jenkins</span><span>Next.js</span><span>Streamlit</span><span>GCP</span><span>Linux</span><span>Postman</span></div>
         </div>
       </div>
       <div class="cert reveal"><span>✓ certified</span> · <span class="b">Google Cloud Computing Foundations</span> — Google Cloud</div>
