@@ -358,15 +358,29 @@
       <div class="sec-head reveal"><span class="sec-idx">03 —</span><h2 class="sec-title">Projects</h2><span class="sec-line"></span></div>
       <div class="proj-grid">
 
-      <a class="proj-card" href="https://github.com/Aaradhya1807/test-review-bot" target="_blank">
-        <div class="proj-type">// automation + ai</div>
-        <div class="proj-name">AI Code Review Bot</div>
-        <div class="proj-desc">Autonomous bot that triggers on every GitHub PR and posts AI-generated code reviews instantly using LLaMA 3.3 via Groq API. Zero manual intervention required.</div>
-        <div class="proj-footer">
-          <div class="proj-stack"><span>Python</span><span>Groq API</span><span>GitHub Actions</span></div>
-          <span class="proj-link">github →</span>
-        </div>
-      </a>
+        <a class="card tilt reveal" href="https://github.com/Aaradhya1807/Parabank_Capstone_project" target="_blank" rel="noopener noreferrer">
+          <div class="card-eyebrow">qa automation · capgemini</div>
+          <h3>ParaBank Test Framework</h3>
+          <p>End-to-end test automation for the ParaBank banking app — UI, API, and hybrid (UI→API) flows on the Page Object Model. Provisions unique users for safe parallel runs, cross-validates UI actions against live API balances, and ships Allure + HTML reports with RTM traceability, run through GitHub Actions and Jenkins.</p>
+          <div class="tech"><span>Playwright</span><span>TypeScript</span><span>API Testing</span><span>POM</span><span>Allure</span><span>Jenkins</span></div>
+          <span class="card-link">view on github <span class="arr">↗</span></span>
+        </a>
+
+        <a class="card tilt reveal" href="https://github.com/Aaradhya1807/test-review-bot" target="_blank" rel="noopener noreferrer">
+          <div class="card-eyebrow">automation + ai</div>
+          <h3>AI Code Review Bot</h3>
+          <p>Autonomous CI/CD bot that triggers on every GitHub PR and posts AI-generated reviews instantly — using LLaMA 3.3 70B via the Groq API to flag bugs, security issues, and quality problems. Zero human intervention.</p>
+          <div class="tech"><span>Python</span><span>Groq API</span><span>LLaMA 3.3</span><span>GitHub Actions</span></div>
+          <span class="card-link">view on github <span class="arr">↗</span></span>
+        </a>
+
+        <a class="card tilt reveal" href="https://github.com/Aaradhya1807/Noise2Signal" target="_blank" rel="noopener noreferrer">
+          <div class="card-eyebrow"><span class="badge">●</span> ai + data · framework</div>
+          <h3>Noise2Signal</h3>
+          <p>Domain-agnostic signal-discovery engine that turns noisy social chatter (YouTube, Reddit, or a CSV) into ranked, auditable ACCEPT/REJECT calls — scored on trend, sentiment, brand fit, and signal quality, with every score traced back to real comment text. Started as a single-purpose HealthKart flavor picker, now a reusable framework across categories — phone specs, sneaker colorways, or any custom domain — with zero changes to the scoring logic.</p>
+          <div class="tech"><span>Python</span><span>Streamlit</span><span>Groq API</span><span>LLaMA 3.1</span><span>Pandas</span></div>
+          <span class="card-link">view on github <span class="arr">↗</span></span>
+        </a>
 
         <a class="card tilt reveal" href="https://mocker-mg.vercel.app/" target="_blank" rel="noopener noreferrer">
           <div class="card-eyebrow"><span class="badge">●</span> full stack · live</div>
@@ -463,5 +477,185 @@
   </div>
 </footer>
 
+<script>
+  const reduce = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  const fine = window.matchMedia('(pointer:fine)').matches;
+
+  // nav border + scroll progress
+  const nav = document.getElementById('nav');
+  const bar = document.getElementById('progress');
+  const onScroll = () => {
+    nav.classList.toggle('scrolled', window.scrollY > 8);
+    const h = document.documentElement;
+    const sc = h.scrollTop / (h.scrollHeight - h.clientHeight || 1);
+    bar.style.transform = 'scaleX(' + sc + ')';
+  };
+  onScroll();
+  window.addEventListener('scroll', onScroll, {passive:true});
+
+  // staggered scroll reveal
+  if (!reduce && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const sibs = [...e.target.parentElement.querySelectorAll(':scope > .reveal')];
+          const i = Math.max(0, sibs.indexOf(e.target));
+          e.target.style.transitionDelay = Math.min(i * 80, 320) + 'ms';
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      });
+    }, {threshold:0.12, rootMargin:'0px 0px -40px 0px'});
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  } else {
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+  }
+
+  // scroll-spy nav
+  const navLinks = [...document.querySelectorAll('.nav-links a')];
+  const spy = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id));
+      }
+    });
+  }, {rootMargin:'-45% 0px -50% 0px'});
+  document.querySelectorAll('main section[id]').forEach(s => spy.observe(s));
+
+  // typewriter role line
+  const typed = document.getElementById('typed');
+  const phrases = ['data analyst & python developer','building ai-powered automation','turning data into decisions','llm-assisted analytics'];
+  if (reduce) { typed.textContent = phrases[0]; }
+  else {
+    let p=0,c=0,del=false;
+    const tick = () => {
+      const w = phrases[p];
+      typed.textContent = w.slice(0,c);
+      if (!del && c<w.length){c++;setTimeout(tick,55);}
+      else if (!del && c===w.length){del=true;setTimeout(tick,1900);}
+      else if (del && c>0){c--;setTimeout(tick,28);}
+      else {del=false;p=(p+1)%phrases.length;setTimeout(tick,380);}
+    };
+    setTimeout(tick,600);
+  }
+
+  // count-up stats
+  const counters = document.querySelectorAll('.num[data-target]');
+  const cObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const el = e.target, target = parseFloat(el.dataset.target),
+            dec = el.dataset.dec === '1', suf = el.dataset.suffix || '';
+      if (reduce){ el.textContent = (dec?target.toFixed(1):target) + suf; cObs.unobserve(el); return; }
+      const dur = 1300, start = performance.now();
+      const step = (now) => {
+        const t = Math.min(1,(now-start)/dur), eased = 1-Math.pow(1-t,3), v = target*eased;
+        el.textContent = (dec ? v.toFixed(1) : Math.round(v)) + suf;
+        if (t<1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+      cObs.unobserve(el);
+    });
+  }, {threshold:0.5});
+  counters.forEach(c => cObs.observe(c));
+
+  // ticker content
+  (function(){
+    const items = ['Python','Pandas','LLM Integration','Power BI','TypeScript','Next.js','GitHub Actions','Streamlit','Groq API','SQL','Playwright','NumPy','PostgreSQL','Prompt Engineering','Tableau','LLaMA 3.1'];
+    const build = () => items.map(x => '<span>'+x+'</span><b>/</b>').join('');
+    document.getElementById('ticker').innerHTML =
+      '<div class="ticker-item">'+build()+'</div><div class="ticker-item">'+build()+'</div>';
+  })();
+
+  // magnetic buttons
+  if (fine && !reduce) {
+    document.querySelectorAll('.magnetic').forEach(btn => {
+      btn.addEventListener('pointermove', (ev) => {
+        const r = btn.getBoundingClientRect();
+        const x = ev.clientX - r.left - r.width/2, y = ev.clientY - r.top - r.height/2;
+        btn.style.transform = 'translate(' + x*0.22 + 'px,' + y*0.3 + 'px)';
+      });
+      btn.addEventListener('pointerleave', () => { btn.style.transform = ''; });
+    });
+  }
+
+  // tilt + spotlight cards
+  if (fine && !reduce) {
+    document.querySelectorAll('.card.tilt').forEach(card => {
+      card.addEventListener('pointermove', (ev) => {
+        const r = card.getBoundingClientRect();
+        const px = (ev.clientX - r.left) / r.width, py = (ev.clientY - r.top) / r.height;
+        const rx = (0.5 - py) * 7, ry = (px - 0.5) * 7;
+        card.style.transform = 'perspective(1000px) rotateX(' + rx + 'deg) rotateY(' + ry + 'deg) translateY(-5px)';
+        card.style.setProperty('--mx', (px*100) + '%');
+        card.style.setProperty('--my', (py*100) + '%');
+      });
+      card.addEventListener('pointerleave', () => { card.style.transform = ''; });
+    });
+  }
+
+  // hero reactive scatter canvas
+  (function(){
+    const canvas = document.getElementById('heroCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const hero = document.getElementById('hero');
+    let pts = [], w = 0, h = 0, dpr = Math.min(window.devicePixelRatio || 1, 2);
+    let mouse = {x:-9999, y:-9999, tx:-9999, ty:-9999}, raf = null, visible = true;
+    const SP = 38, R = 150;
+
+    function build(){
+      const r = hero.getBoundingClientRect();
+      w = r.width; h = r.height;
+      canvas.width = w*dpr; canvas.height = h*dpr;
+      ctx.setTransform(dpr,0,0,dpr,0,0);
+      pts = [];
+      for (let y=SP/2; y<h; y+=SP)
+        for (let x=SP/2; x<w; x+=SP)
+          pts.push({x,y,ph:(x+y)*0.012});
+      if (mouse.tx < -9000){ mouse.tx = w*0.6; mouse.ty = h*0.4; mouse.x = mouse.tx; mouse.y = mouse.ty; }
+    }
+    function lerp(a,b,t){return a+(b-a)*t;}
+    function draw(time){
+      ctx.clearRect(0,0,w,h);
+      mouse.x = lerp(mouse.x, mouse.tx, 0.08);
+      mouse.y = lerp(mouse.y, mouse.ty, 0.08);
+      for (const p of pts){
+        const dx = p.x-mouse.x, dy = p.y-mouse.y;
+        const d = Math.sqrt(dx*dx+dy*dy);
+        const inf = Math.max(0, 1 - d/R);
+        const amb = (Math.sin(time*0.0012 + p.ph)+1)/2 * 0.12;
+        const rad = 1.1 + inf*2.6 + amb;
+        const a = 0.16 + inf*0.6 + amb*0.3;
+        if (inf > 0.04){
+          ctx.strokeStyle = 'rgba(22,43,216,' + (inf*0.16) + ')';
+          ctx.lineWidth = 1;
+          ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.lineTo(mouse.x,mouse.y); ctx.stroke();
+        }
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,rad,0,6.2832);
+        ctx.fillStyle = inf>0.04 ? 'rgba(22,43,216,'+a+')' : 'rgba(120,126,138,'+a+')';
+        ctx.fill();
+      }
+      raf = requestAnimationFrame(draw);
+    }
+    function start(){ if(!raf && visible && !reduce) raf = requestAnimationFrame(draw); }
+    function stop(){ if(raf){cancelAnimationFrame(raf); raf=null;} }
+
+    build();
+    if (reduce){ draw(0); }    // single static frame
+    else {
+      start();
+      hero.addEventListener('pointermove', (ev) => {
+        const r = hero.getBoundingClientRect();
+        mouse.tx = ev.clientX - r.left; mouse.ty = ev.clientY - r.top;
+      });
+      hero.addEventListener('pointerleave', () => { mouse.tx = w*0.6; mouse.ty = h*0.4; });
+      new IntersectionObserver(es => { visible = es[0].isIntersecting; visible ? start() : stop(); })
+        .observe(hero);
+    }
+    let rt; window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(build, 200); });
+  })();
+</script>
 </body>
 </html>
